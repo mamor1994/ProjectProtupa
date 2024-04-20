@@ -1,0 +1,29 @@
+movie class:
+    properties:
+        movieId
+        title
+        rating
+        released(date)
+        released place
+        length(minutes)
+        genres(list of genre ids or grenre names)
+        number_of_rates
+        number_of_reviews
+        review_url
+
+user class:
+    properties:
+        userId
+        username
+        total_reviews
+        list of class Review
+        
+
+Review Class:
+    properties:
+        reviewId
+        userId
+        number_of_helpful
+        date
+        title
+        description(review)        
