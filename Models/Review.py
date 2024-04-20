@@ -8,11 +8,11 @@ class Review:
         self._description=""
 
     @property
-    def reviewId(self):
+    def Id(self):
         return self._reviewId
 
-    @reviewId.setter
-    def reviewId(self, value):
+    @Id.setter
+    def Id(self, value):
         self._reviewId = value
 
     @property

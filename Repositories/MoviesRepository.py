@@ -1,12 +1,27 @@
+from Models.Movie import Movie
 class MoviesRepository:
     def __init__(self):
-        self._Movies=[]
+        self._movies=[]
+
         
 
     @property
-    def Movies(self):
-        return self._Movies
+    def movies(self):
+        return self._movies
 
-    @Movies.setter
-    def Movies(self, value):
-        self._Movies = value
+    @movies.setter
+    def movies(self, value):
+        self._movies = value
+
+    def addMovie(self,movie=Movie):
+        if len(self._movies==0):
+            movie.Id=1
+        elif movie.Id==0:
+            movie.Id=self._movies[len(self._movies)-1]+1
+        self._movies.append(movie)
+
+    def findMovieById(self,id):
+        pass
+
+    def findMovieByMovieTitle(self,title):
+        pass

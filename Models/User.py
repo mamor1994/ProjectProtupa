@@ -6,19 +6,19 @@ class User:
         self._reviews=[]
 
     @property
-    def userId(self):
+    def Id(self):
         return self._userId
 
-    @userId.setter
-    def userId(self, value):
+    @Id.setter
+    def Id(self, value):
         self._userId = value
 
     @property
-    def username(self):
+    def Name(self):
         return self._username
 
-    @username.setter
-    def username(self, value):
+    @Name.setter
+    def Name(self, value):
         self._username = value
 
     @property

@@ -12,19 +12,19 @@ class Movie:
         self._review_url=""
 
     @property
-    def movieId(self):
+    def Id(self):
         return self._movieId
 
-    @movieId.setter
-    def movieId(self, value):
+    @Id.setter
+    def Id(self, value):
         self._movieId = value
 
     @property
-    def title(self):
+    def Name(self):
         return self._title
 
-    @title.setter
-    def title(self, value):
+    @Name.setter
+    def Name(self, value):
         self._title = value
 
     @property
