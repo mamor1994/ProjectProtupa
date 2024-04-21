@@ -19,8 +19,10 @@ class ImportService:
             movie = reviewsPerMovieMapper.reviewsPerMovieDToToMovie(reviewsPerMovieDTO)
             self._moviesRepository.save(movie)
         print("In import service")
-        for movie in self._moviesRepository.Movies:
-            print(movie.Title)
+        # for movie in self._moviesRepository.Movies:
+        #     print(movie.Title)
+        for movie in self._moviesRepository.MoviesDict:
+            print(movie,"->",self._moviesRepository.MoviesDict[movie].Id)
         #read files
         #parse data to DTOs
         #map data to Repositories->they will be sorted by id

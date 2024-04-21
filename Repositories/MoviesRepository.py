@@ -45,7 +45,7 @@ class MoviesRepository:
         if tempMovie is None:
             self.addMovie(movie)
             return                        
-        index = self.findById(movie.Id)
+        index = self.findById(tempMovie.Id)
         self.updateMovie(index,movie)            
         
         
