@@ -20,11 +20,11 @@ class Movie:
         self._movieId = value
 
     @property
-    def Name(self):
+    def Title(self):
         return self._title
 
-    @Name.setter
-    def Name(self, value):
+    @Title.setter
+    def Title(self, value):
         self._title = value
 
     @property

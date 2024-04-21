@@ -6,23 +6,23 @@ class FileReader:
     def __init__(self,folderName):
         self._folderName = folderName
         self._path = self.initPath(self._folderName)
+        self._rowsDict={}
     
-    def retrieveMovies(self): 
-        os.environ["PYTHONUTF8"]="1"   
+    def retrieveData(self): 
+        os.environ["PYTHONUTF8"]="1"
+        print("here")   
         print(self._path)
         count = 0
         for filename in os.listdir(self._path):
             try:
                 file_path = os.path.join(self._path,os.fsdecode(os.fsencode(filename)))
                 if os.path.isfile(file_path.encode('utf8').decode('utf8')):
-                    self.readCSV(file_path)
-                    
-                    
+                    self._rowsDict[filename]=self.readCSV(file_path)                                                            
             except Exception as e:
                 error_message = f"Exception in reading this file: {filename}, Error stack trace: {str(e)}"
                 print(error_message.encode('utf-8', errors='replace').decode('utf-8'))
                 #print("Exception in reading this file:",filename.encode('utf8').decode('utf8'),"\n","error stackTrace:",e)
-        print(count)    
+        return self._rowsDict    
 
     def initPath(self,folderName):
         currentDir = os.path.dirname(__file__)
@@ -33,6 +33,8 @@ class FileReader:
     
     def readCSV(self,file_path):
         with open(file_path, mode='r', encoding='utf-8') as file:
-            csv_reader = csv.reader(file)            
+            csv_reader = csv.reader(file)
+            rows=[]                        
             for row in csv_reader:
-                pass
+                rows.append(row)
+            return rows

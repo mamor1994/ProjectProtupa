@@ -14,11 +14,11 @@ class User:
         self._userId = value
 
     @property
-    def Name(self):
+    def Username(self):
         return self._username
 
-    @Name.setter
-    def Name(self, value):
+    @Username.setter
+    def Username(self, value):
         self._username = value
 
     @property

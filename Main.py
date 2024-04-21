@@ -1,21 +1,23 @@
-from Importer.FileReader import FileReader
+from Services.ImportService import ImportService
+
 import sys
 import io
 import csv
 
 
 def main():    
-    print(sys.stdout.encoding)
-    filereader = FileReader("2_reviews_per_movie_raw")
-    filereader.retrieveMovies()
-    # currentDir = __file__
-    # print(currentDir)
+    print(sys.stdout.encoding)    
+    importService = ImportService()
+    importService.importFromFolder1()
+    
+
+
 
 
 
 if __name__ == "__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')   
     
-    # main()
+    main()
 
     

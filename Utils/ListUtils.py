@@ -9,6 +9,9 @@ class ListUtils:
     def binarySearchByName(self,list=[],name=""):
         key_func = lambda obj:obj.Name
         return self.binarySearchHelper(list, name, 0, len(list)-1, key_func)
+    
+    def binarySearchByKeyFunc(self,list=[], target=0, key_func= lambda obj:obj.Id):
+        return self.binarySearchHelper(self,list, target, 0, len(list)-1, key_func)
          
 
     def binarySearchHelper(self,array, target, left, right, key_func):
@@ -19,6 +22,6 @@ class ListUtils:
         if target == potentialMatch:
                 return middle
         elif target < potentialMatch:
-            return self.binarySearchHelper(array, target, left, middle - 1)
+            return self.binarySearchHelper(array, target, left, middle - 1, key_func)
         else:
-            return self.binarySearchHelper(array, target, middle + 1, right)
+            return self.binarySearchHelper(array, target, middle + 1, right, key_func)
