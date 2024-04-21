@@ -1,14 +1,13 @@
 from Services.ImportService import ImportService
-
+from Tests.TestUtils import TestUtils
 import sys
 import io
 import csv
 
 
-def main():    
-    print(sys.stdout.encoding)    
+def main():        
     importService = ImportService()
-    importService.importFromFolder1()
+    importService.importFromFolder2()
     
 
 
@@ -17,7 +16,9 @@ def main():
 
 if __name__ == "__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')   
-    
-    main()
+    testUtils = TestUtils()
+    testUtils.testHashMap()
+
+    # main()
 
     

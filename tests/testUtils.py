@@ -42,3 +42,5 @@ class TestUtils:
         if streetno.get("7",None) is None:
             print("Does not exist")
         print(streetno["6"])
+        streetno.pop("7")
+        streetno.pop("6")

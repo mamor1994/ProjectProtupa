@@ -11,7 +11,7 @@ class ListUtils:
         return self.binarySearchHelper(list, name, 0, len(list)-1, key_func)
     
     def binarySearchByKeyFunc(self,list=[], target=0, key_func= lambda obj:obj.Id):
-        return self.binarySearchHelper(self,list, target, 0, len(list)-1, key_func)
+        return self.binarySearchHelper(list, target, 0, len(list)-1, key_func)
          
 
     def binarySearchHelper(self,array, target, left, right, key_func):

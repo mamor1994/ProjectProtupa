@@ -27,10 +27,17 @@ class ReviewsPerMovieMapper:
 
     def reviewsPerMovieDTOToReview(self,dto=ReviewsPerMovieDTO):
         review = Review()
+        review.username=dto.username
+        review.rating=dto.rating
+        review.number_of_helpful=dto.helpful
+        review.date=dto.date        
+        review.title=dto.title        
+        review.description=dto.review
         return review
     
     def reviewsPerMovieDTOToUser(self,dto=ReviewsPerMovieDTO):
         user=User()
+        user.Username=dto.username
         return user
     
 

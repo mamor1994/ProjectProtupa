@@ -34,7 +34,7 @@ class MoviesRepository:
         self._moviesDict[movie.Title]=movie
 
     def updateMovie(self,index,movie=Movie):
-        movieToChange = self._movies
+        movieToChange = self._movies[index]
         self._moviesDict.pop(movieToChange.Title)        
         self._movies[index]=movie
         self._moviesDict[movie.Title]=movie
@@ -53,9 +53,10 @@ class MoviesRepository:
     def findById(self,id):
         listUtils = ListUtils()
         index = listUtils.binarySearchByKeyFunc(self._movies,id)
-        if index==-1:
-            return None
-        return self._movies[index]   
+        return index
+        # if index==-1:
+        #     return None
+        # return self._movies[index]   
 
     def findMovieByTitle(self,title):
         return self._moviesDict.get(title,None)

@@ -8,3 +8,6 @@ class DictUtils:
     def mapListToDictByUsername(self,users):
         return {user.Username: user for user in users}
     
+    def mapListToDictByReviewId(self,reviews):
+        return {review.Id:review for review in reviews}
+    

@@ -2,11 +2,38 @@ class Review:
     def __init__(self) -> None:
         self._reviewId=0
         self._userId=0
+        self._username=""
         self._number_of_helpful=0
+        self._rating=0
+        self._total=0
         self._date=""
         self._title=""
         self._description=""
 
+    @property
+    def total(self):
+        return self._total
+
+    @total.setter
+    def total(self, value):
+        self._total = value
+
+    @property
+    def username(self):
+        return self._username
+
+    @username.setter
+    def username(self, value):
+        self._username = value
+
+    @property
+    def rating(self):
+        return self._rating
+
+    @rating.setter
+    def rating(self, value):
+        self._rating = value
+        
     @property
     def Id(self):
         return self._reviewId
