@@ -4,7 +4,10 @@ class MyObject:
         self.Id = id
         self.Name = name
 
-objects = [MyObject(1, "Alice"), MyObject(2, "Bob"), MyObject(3, "Amélie 2001.csv")]
+objects = [MyObject(1, "Alice"), 
+        #    MyObject(2, "Bob"), 
+           MyObject(3, "Amélie 2001.csv")
+           ]
 
 
 
@@ -20,7 +23,7 @@ class TestUtils:
 
     def testBinarySearchByNumber(self):
         listUtils = ListUtils()
-        index = listUtils.binarySearchByNumber(self._objects,3)
+        index = listUtils.binarySearchByNumber(self._objects,1)
         print(index)
     
     def testBinarySearchByName(self):

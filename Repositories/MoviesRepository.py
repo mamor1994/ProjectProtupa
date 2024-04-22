@@ -1,6 +1,8 @@
 from Models.Movie import Movie
 from Utils.ListUtils import ListUtils
 from Utils.DictUtils import DictUtils
+from Logger.Logger import Logger
+
 class MoviesRepository:
     def __init__(self):
         self._movies=[]
@@ -35,6 +37,17 @@ class MoviesRepository:
 
     def updateMovie(self,index,movie=Movie):
         movieToChange = self._movies[index]
+        # logger = Logger()
+        # logger.appendToFile('logs.txt')
+        # logger.writeLine("##################################")
+        # logger.writeLine("index="+str(index))
+        # logger.writeObject("movie=",movie,10)
+        # logger.writeObject("movieToChange=",movieToChange,10)
+        # logger.writeLine("##################################")
+        # logger.close()
+        
+        # print ("movie=",movie)
+        # print ("movieToChange=",movieToChange)
         self._moviesDict.pop(movieToChange.Title)        
         self._movies[index]=movie
         self._moviesDict[movie.Title]=movie
@@ -44,8 +57,10 @@ class MoviesRepository:
         tempMovie = self.findMovieByTitle(movie.Title)
         if tempMovie is None:
             self.addMovie(movie)
+            print("added")
             return                        
         index = self.findById(tempMovie.Id)
+        print("index=",index,"\t","id of tempMovie=",tempMovie.Id,"\t","len=",len(self._movies),"\t","movie=",movie.Title,"\t","tempMovie=",tempMovie.Title)        
         self.updateMovie(index,movie)            
         
         

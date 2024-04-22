@@ -24,7 +24,7 @@ class ImportService:
         #     print(movie.Title)
         # for movie in self._moviesRepository.MoviesDict:
         #     print(movie,"->",self._moviesRepository.MoviesDict[movie].Id)
-        print("#####################################################")
+        
         for review in self._reviewsRepository.ReviewsDict:
             print(review,"-->",self._reviewsRepository.ReviewsDict[review].title)
         #read files

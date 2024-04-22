@@ -17,8 +17,10 @@ def main():
 if __name__ == "__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')   
     testUtils = TestUtils()
-    testUtils.testHashMap()
+    # testUtils.testHashMap()
+    # testUtils.testBinarySearchByName()
+    # testUtils.testBinarySearchByNumber()
 
-    # main()
+    main()
 
     
