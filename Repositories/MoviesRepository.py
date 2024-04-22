@@ -7,6 +7,7 @@ class MoviesRepository:
     def __init__(self):
         self._movies=[]
         self._moviesDict={}
+        self._movieIds={}
 
     @property
     def MoviesDict(self):
@@ -28,14 +29,25 @@ class MoviesRepository:
         self._movies = value
 
     def addMovie(self,movie=Movie):
-        if len(self._movies)==0:
+        # if len(self._movies)==0:
+        #     movie.Id=1
+        # elif movie.Id==0:
+        #     movie.Id=self._movies[-1].Id+1
+        if not self._movies:
             movie.Id=1
-        elif movie.Id==0:
-            movie.Id=self._movies[len(self._movies)-1].Id+1
+        else:
+            movie.Id=self._movies[-1].Id+1
+            #print("Added movie with id=", movie.Id)
+            print(f"Added movie with id={movie.Id}")
         self._movies.append(movie)
-        self._moviesDict[movie.Title]=movie
+        # self._moviesDict[movie.Title]=movie
+        # self._movieIds[movie.Id]=movie
+        self.writeMovieToDicts(movie)
 
     def updateMovie(self,index,movie=Movie):
+        if index == -1 or index >= len(self._movies):
+            print(f"No movie found at index {index} to update.")
+            return
         movieToChange = self._movies[index]
         # logger = Logger()
         # logger.appendToFile('logs.txt')
@@ -50,8 +62,10 @@ class MoviesRepository:
         # print ("movieToChange=",movieToChange)
         self._moviesDict.pop(movieToChange.Title)        
         self._movies[index]=movie
-        self._moviesDict[movie.Title]=movie
-        pass
+        self.writeMovieToDicts(movie)
+        # self._moviesDict[movie.Title]=movie
+        # self._movieIds[movie.Id]=movie
+        
 
     def save(self,movie=Movie):                
         tempMovie = self.findMovieByTitle(movie.Title)
@@ -61,7 +75,9 @@ class MoviesRepository:
             return                        
         index = self.findById(tempMovie.Id)
         print("index=",index,"\t","id of tempMovie=",tempMovie.Id,"\t","len=",len(self._movies),"\t","movie=",movie.Title,"\t","tempMovie=",tempMovie.Title)        
-        self.updateMovie(index,movie)            
+        # print(f"Index={index}")
+        
+        self.updateMovie(index,tempMovie)            
         
         
 
@@ -86,4 +102,6 @@ class MoviesRepository:
         self._movies=movies
 
     
-    
+    def writeMovieToDicts(self,movie=Movie):
+        self._moviesDict[movie.Title]=movie
+        self._movieIds[movie.Id]=movie
