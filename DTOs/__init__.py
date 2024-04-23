@@ -1,1 +1,1 @@
-from . import ReviewsPerMovieDTO
+from . import ReviewsPerMovieDTO,MovieDetailsDTO

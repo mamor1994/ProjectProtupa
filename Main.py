@@ -1,5 +1,6 @@
 from Services.ImportService import ImportService
 from Tests.TestUtils import TestUtils
+
 import sys
 import io
 import csv
@@ -8,6 +9,7 @@ import csv
 def main():        
     importService = ImportService()
     importService.importFromFolder2()
+    importService.importFromFolder1()
     
 
 
@@ -19,8 +21,7 @@ if __name__ == "__main__":
     testUtils = TestUtils()
     # testUtils.testHashMap()
     # testUtils.testBinarySearchByName()
-    # testUtils.testBinarySearchByNumber()
-
+    # testUtils.testBinarySearchByNumber()   
     main()
 
     

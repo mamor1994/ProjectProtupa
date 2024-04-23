@@ -5,6 +5,7 @@ class ReviewsRepository:
     def __init__(self):
         self._reviews=[]
         self._reviewsDict={}
+        self._reviewIds={}
 
     @property
     def ReviewsDict(self):
@@ -14,7 +15,13 @@ class ReviewsRepository:
     def ReviewsDict(self, value):
         self._reviewsDict = value
 
-
+    @property
+    def ReviewIds(self):
+        return self._reviewIds
+    
+    @ReviewIds.setter
+    def ReviewIds(self,value):
+        self._reviewIds=value
         
 
     @property
@@ -26,10 +33,10 @@ class ReviewsRepository:
         self._reviews = value
 
     def addReview(self,review=Review):
-        if len(self._reviews)==0:
+        if not self._reviews:
             review.Id=1
-        elif review.Id==0:
-            review.Id=self._reviews[len(self._reviews)-1].Id+1
+        else:
+            review.Id=self._reviews[-1].Id+1
         self._reviews.append(review)
         self._reviewsDict[review.Id]=review
 
@@ -52,10 +59,8 @@ class ReviewsRepository:
 
     def findById(self,id):
         listUtils = ListUtils()
-        index = listUtils.binarySearchByKeyFunc(self._reviews,id)
-        if index==-1:
-            return None
-        return self._reviews[index]   
+        index = listUtils.binarySearchByKeyFunc(self._reviews,id)      
+        return index   
 
     #hashmap
     def findReviewById(self,title):
@@ -69,3 +74,6 @@ class ReviewsRepository:
         self._reviews.clear()
         self._reviewsDict=dictUtils.mapListToDictByReviewId(reviews)
         self._reviews=reviews
+
+    def writeReviewToDicts(self,review=Review):
+        self._reviewsDict[review.Id]

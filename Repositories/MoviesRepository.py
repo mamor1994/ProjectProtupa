@@ -28,20 +28,13 @@ class MoviesRepository:
     def Movies(self, value):
         self._movies = value
 
-    def addMovie(self,movie=Movie):
-        # if len(self._movies)==0:
-        #     movie.Id=1
-        # elif movie.Id==0:
-        #     movie.Id=self._movies[-1].Id+1
+    def addMovie(self,movie=Movie):     
         if not self._movies:
             movie.Id=1
         else:
-            movie.Id=self._movies[-1].Id+1
-            #print("Added movie with id=", movie.Id)
+            movie.Id=self._movies[-1].Id+1            
             print(f"Added movie with id={movie.Id}")
-        self._movies.append(movie)
-        # self._moviesDict[movie.Title]=movie
-        # self._movieIds[movie.Id]=movie
+        self._movies.append(movie)        
         self.writeMovieToDicts(movie)
 
     def updateMovie(self,index,movie=Movie):
@@ -56,25 +49,21 @@ class MoviesRepository:
         # logger.writeObject("movie=",movie,10)
         # logger.writeObject("movieToChange=",movieToChange,10)
         # logger.writeLine("##################################")
-        # logger.close()
-        
-        # print ("movie=",movie)
-        # print ("movieToChange=",movieToChange)
+        # logger.close()          
+        movie.Id = movieToChange.Id
         self._moviesDict.pop(movieToChange.Title)        
+        self._movieIds.pop(movieToChange.Id)        
         self._movies[index]=movie
-        self.writeMovieToDicts(movie)
-        # self._moviesDict[movie.Title]=movie
-        # self._movieIds[movie.Id]=movie
+        self.writeMovieToDicts(movie)      
         
 
     def save(self,movie=Movie):                
         tempMovie = self.findMovieByTitle(movie.Title)
         if tempMovie is None:
-            self.addMovie(movie)
-            print("added")
+            self.addMovie(movie)            
             return                        
         index = self.findById(tempMovie.Id)
-        print("index=",index,"\t","id of tempMovie=",tempMovie.Id,"\t","len=",len(self._movies),"\t","movie=",movie.Title,"\t","tempMovie=",tempMovie.Title)        
+        #print("index=",index,"\t","id of tempMovie=",tempMovie.Id,"\t","len=",len(self._movies),"\t","movie=",movie.Title,"\t","tempMovie=",tempMovie.Title)        
         # print(f"Index={index}")
         
         self.updateMovie(index,tempMovie)            
