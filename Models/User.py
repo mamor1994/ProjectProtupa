@@ -3,8 +3,9 @@ class User:
         self._userId=0
         self._username=""
         self._total_reviews=0
+      
         self._reviews=[]
-
+   
     @property
     def Id(self):
         return self._userId

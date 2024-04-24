@@ -15,6 +15,8 @@ def main():
     context = importService.writeToContext()
     usersService=UsersService(context)
     usersService.writeReviewDataToUsers()
+    context = usersService.context
+    
     usersService.printData()
     
 

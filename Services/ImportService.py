@@ -18,7 +18,7 @@ class ImportService:
         #key filename,rows list
         rowsDict = filereader.retrieveData()              
         self.parseReviewsDictToDTOS(rowsDict)
-        print(len(self._reviewsPerMovieDTOS))
+        #print(len(self._reviewsPerMovieDTOS))
         self.parseReviewsDTOsToMoviesRepository()
         self.parseReviewsDTOsToReviewsRepository()
         
