@@ -33,7 +33,7 @@ class MoviesRepository:
             movie.Id=1
         else:
             movie.Id=self._movies[-1].Id+1            
-            print(f"Added movie with id={movie.Id}")
+            #print(f"Added movie with id={movie.Id}")
         self._movies.append(movie)        
         self.writeMovieToDicts(movie)
 
@@ -60,6 +60,7 @@ class MoviesRepository:
     def save(self,movie=Movie):                
         tempMovie = self.findMovieByTitle(movie.Title)
         if tempMovie is None:
+            print(f"no movie found with title={movie.Title}")
             self.addMovie(movie)            
             return                        
         index = self.findById(tempMovie.Id)

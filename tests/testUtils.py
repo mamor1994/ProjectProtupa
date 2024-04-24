@@ -1,4 +1,5 @@
 from Utils.ListUtils import ListUtils
+from Utils.StringUtils import StringUtils
 class MyObject:
     def __init__(self, id, name):
         self.Id = id
@@ -47,3 +48,8 @@ class TestUtils:
         print(streetno["6"])
         streetno.pop("7")
         streetno.pop("6")
+
+    def testRegex(self):
+        stringUtils = StringUtils()
+        string = stringUtils.retrieveStringBeforeRegex("Inception2018 rises 2018",r"[0-9]{4}$")
+        print(string)

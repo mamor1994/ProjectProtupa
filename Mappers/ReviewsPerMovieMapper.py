@@ -22,10 +22,9 @@ class Mapper:
         dto.movieTitle = filename
         return dto
 
-    def reviewsPerMovieDTOToMovie(self,dto=ReviewsPerMovieDTO):
-        stringUtils = StringUtils()
+    def reviewsPerMovieDTOToMovie(self,dto=ReviewsPerMovieDTO):        
         movie = Movie()
-        movie.Title = stringUtils.removeFirstPortion(dto.movieTitle,".csv")
+        movie.Title = self.convertFileNameToMovieTitle(dto.movieTitle)
         return movie                
 
     def reviewsPerMovieDTOToReview(self,dto=ReviewsPerMovieDTO):
@@ -70,8 +69,21 @@ class Mapper:
         movie.review_url = dto.reviews_url        
         return movie
         
+    def removeYear(self,string):
+        stringUtils = StringUtils()
+        cuttedString = stringUtils.retrieveStringBeforeRegex(string,r"[0-9]{4}$")
+        return cuttedString
+    
     
 
-
-
+    def convertFileNameToMovieTitle(self,string):
+        stringUtils = StringUtils()
+        modifiedString = stringUtils.removeFirstPortion(string,".csv")
+        modifiedString = self.removeYear(modifiedString).rstrip()
+        if modifiedString == "3_10 to Yuma":            
+            return "3:10 to Yuma"
+        if modifiedString.endswith("_"):
+            modifiedString = modifiedString.replace("_","?")
+        modifiedString = modifiedString.replace("_ ",": ")
+        return modifiedString
         

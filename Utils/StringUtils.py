@@ -1,3 +1,4 @@
+import re
 class StringUtils:
     def __init__(self) -> None:
         pass
@@ -9,3 +10,13 @@ class StringUtils:
     
     def convertTimeToMinutes(self,time):
         return
+    
+    def findIndexRegex(self,string,regex):
+        return re.search(rf"{regex}",string).span()[0]
+    
+    def retrieveStringBeforeRegex(self,string,regex):
+        index = self.findIndexRegex(string,regex)        
+        cuttedString = string[0:index]
+        return cuttedString
+
+    

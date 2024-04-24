@@ -21,7 +21,9 @@ if __name__ == "__main__":
     testUtils = TestUtils()
     # testUtils.testHashMap()
     # testUtils.testBinarySearchByName()
-    # testUtils.testBinarySearchByNumber()   
+    # testUtils.testBinarySearchByNumber()
+    # testUtils.testRegex()
     main()
+    
 
     
