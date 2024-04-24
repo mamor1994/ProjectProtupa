@@ -18,5 +18,8 @@ class StringUtils:
         index = self.findIndexRegex(string,regex)        
         cuttedString = string[0:index]
         return cuttedString
+    
+    def convertDateStringToDate(self,string):
+        return
 
     

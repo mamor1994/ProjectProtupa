@@ -2,6 +2,7 @@ from Importer.FileReader import FileReader
 from Mappers.ReviewsPerMovieMapper import Mapper
 from Repositories.MoviesRepository import MoviesRepository
 from Repositories.ReviewsRepository import ReviewsRepository
+from Context.Context import Context
 class ImportService:
     def __init__(self) -> None:
         self._reviewsPerMovieDTOS=[]
@@ -66,3 +67,9 @@ class ImportService:
             movie = self._mapper.movieDetailsDTOToMovie(movieDetailsDTO)
             self._moviesRepository.save(movie)
         return    
+    
+    def writeToContext(self):
+        context = Context()
+        context.moviesRepository = self._moviesRepository
+        context.reviewsRepository = self._reviewsRepository
+        return context
