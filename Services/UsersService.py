@@ -22,14 +22,17 @@ class UsersService:
             self.mapReviewToUser(review)
         self._context.usersRepository=self._usersRepository
 
-    def printUserNames(self):
+    def printData(self):
+        #print user names and number of reviews per user
         for user in self._usersRepository.Users:
-            print(user.Username)
+            print(user.Username,"-->",user.total_reviews)
         print(len(self._usersRepository.Users))
 
     def mapReviewToUser(self,review):
-        user=User()
-        user.Username=review.username
+        user=self._usersRepository.findUserByUsername(review.username)
+        if user is None:
+            user=User()        
+            user.Username=review.username
         user.reviews.append(review)
         user.total_reviews=len(user.reviews)
         self._usersRepository.save(user)
