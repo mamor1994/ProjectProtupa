@@ -9,10 +9,7 @@ class FileReader:
         self._rowsDict={}
     
     def retrieveData(self): 
-        os.environ["PYTHONUTF8"]="1"
-        print("here")   
-        print(self._path)
-        
+        os.environ["PYTHONUTF8"]="1"                        
         for filename in os.listdir(self._path):
             try:
                 file_path = os.path.join(self._path,os.fsdecode(os.fsencode(filename)))

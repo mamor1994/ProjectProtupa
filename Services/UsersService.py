@@ -1,13 +1,17 @@
 from Context.Context import Context
+from Repositories.MoviesRepository import MoviesRepository
+from Repositories.ReviewsRepository import ReviewsRepository
+from Repositories.UsersRepository import UsersRepository
 from Models.User import User
+from Models.Review import Review
 
 
 class UsersService:
     def __init__(self,context=Context):
         self._context=context
-        self._usersRepository=context.usersRepository
-        self._moviesRepository=context.moviesRepository
-        self._reviewsRepository=context.reviewsRepository
+        self._usersRepository:UsersRepository=context.usersRepository
+        self._moviesRepository:MoviesRepository=context.moviesRepository
+        self._reviewsRepository:ReviewsRepository=context.reviewsRepository
 
     @property
     def context(self):
@@ -31,7 +35,7 @@ class UsersService:
         print("Ο αριθμός των ταινιών I είναι",len(self._moviesRepository.Movies))
         pass
 
-    def mapReviewToUser(self,review):
+    def mapReviewToUser(self,review:Review):
         user=self._usersRepository.findUserByUsername(review.username)
         if user is None:
             user=User()        

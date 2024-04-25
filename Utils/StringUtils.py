@@ -21,5 +21,10 @@ class StringUtils:
     
     def convertDateStringToDate(self,string):
         return
-
+    
+    def convertStringRatingToNumber(self,string):
+        if string == 'Null':
+            return 0
+        else:
+            return int(string)
     

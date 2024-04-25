@@ -2,8 +2,7 @@ class User:
     def __init__(self) -> None:
         self._userId=0
         self._username=""
-        self._total_reviews=0
-      
+        self._total_reviews=0      
         self._reviews=[]
    
     @property

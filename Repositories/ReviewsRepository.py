@@ -3,7 +3,7 @@ from Utils.ListUtils import ListUtils
 from Utils.DictUtils import DictUtils
 class ReviewsRepository:
     def __init__(self):
-        self._reviews=[]
+        self._reviews:Review=[]
         self._reviewsDict={}
         self._reviewIds={}
 

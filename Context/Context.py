@@ -6,15 +6,15 @@ class Context:
         if moviesRepository is None:
             self._moviesRepository=MoviesRepository()
         else:
-            self._moviesRepository=moviesRepository
+            self._moviesRepository:MoviesRepository=moviesRepository
         if usersRepository is None:
             self._usersRepository=UsersRepository()
         else:
-            self._usersRepository=usersRepository
+            self._usersRepository:UsersRepository=usersRepository
         if reviewsRepository is None:
             self._reviewsRepository=ReviewsRepository()
         else:
-            self._reviewsRepository=reviewsRepository
+            self._reviewsRepository:ReviewsRepository=reviewsRepository
 
     @property        
     def moviesRepository(self):

@@ -13,6 +13,7 @@ class ImportService:
         pass
 
     def importFromFolder2(self):
+        print("Beginning to read the reviews from folder 2")
         filereader = FileReader("2_reviews_per_movie_raw")
         
         #key filename,rows list
@@ -30,6 +31,7 @@ class ImportService:
         pass
     
     def importFromFolder1(self):
+        print("Beginning to read the movies from folder 1")
         fileReader = FileReader("1_movies_per_genre")
         rowsDict = fileReader.retrieveData()
         self.parseMoviesDictToDTOs(rowsDict)

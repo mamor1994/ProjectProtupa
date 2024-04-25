@@ -1,6 +1,9 @@
 from Services.ImportService import ImportService
 from Services.UsersService import UsersService
+from Services.ClusterService import ClusterService
 from Context.Context import Context
+
+
 
 import sys
 import io
@@ -18,10 +21,14 @@ def main():
     context = usersService.context
     
     usersService.printData()
+    printMovieTitles(context)
     
 
 
-
+def printMovieTitles(context=Context):
+    movies = context.moviesRepository.Movies
+    for movie in movies:
+        print(movie.Title)
 
 
 if __name__ == "__main__":
@@ -31,7 +38,9 @@ if __name__ == "__main__":
     # testUtils.testBinarySearchByName()
     # testUtils.testBinarySearchByNumber()
     # testUtils.testRegex()
-    main()
+    # main()
+    clusterService=ClusterService()
+    clusterService.applyKmeans()
     
 
     

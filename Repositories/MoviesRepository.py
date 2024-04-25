@@ -41,15 +41,7 @@ class MoviesRepository:
         if index == -1 or index >= len(self._movies):
             print(f"No movie found at index {index} to update.")
             return
-        movieToChange = self._movies[index]
-        # logger = Logger()
-        # logger.appendToFile('logs.txt')
-        # logger.writeLine("##################################")
-        # logger.writeLine("index="+str(index))
-        # logger.writeObject("movie=",movie,10)
-        # logger.writeObject("movieToChange=",movieToChange,10)
-        # logger.writeLine("##################################")
-        # logger.close()          
+        movieToChange = self._movies[index]     
         movie.Id = movieToChange.Id
         self._moviesDict.pop(movieToChange.Title)        
         self._movieIds.pop(movieToChange.Id)        
@@ -60,13 +52,10 @@ class MoviesRepository:
     def save(self,movie=Movie):                
         tempMovie = self.findMovieByTitle(movie.Title)
         if tempMovie is None:
-            # print(f"no movie found with title={movie.Title}")
+            
             self.addMovie(movie)            
             return                        
-        index = self.findById(tempMovie.Id)
-        #print("index=",index,"\t","id of tempMovie=",tempMovie.Id,"\t","len=",len(self._movies),"\t","movie=",movie.Title,"\t","tempMovie=",tempMovie.Title)        
-        # print(f"Index={index}")
-        
+        index = self.findById(tempMovie.Id)                
         self.updateMovie(index,tempMovie)            
         
         
@@ -75,15 +64,10 @@ class MoviesRepository:
         listUtils = ListUtils()
         index = listUtils.binarySearchByKeyFunc(self._movies,id)
         return index
-        # if index==-1:
-        #     return None
-        # return self._movies[index]   
-
+         
     def findMovieByTitle(self,title):
         return self._moviesDict.get(title,None)
-        
-        
-
+            
     def saveAll(self,movies=[]):
         dictUtils = DictUtils()
         self._moviesDict.clear()
