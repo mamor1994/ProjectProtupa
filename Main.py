@@ -40,6 +40,7 @@ if __name__ == "__main__":
     # testUtils.testRegex()
     # main()
     clusterService=ClusterService()
+    clusterService.initMetric(clusterService.calculateEuclideanDistance)
     clusterService.applyKmeans(2)
     clusterService.showGraph()
     
