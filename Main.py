@@ -41,6 +41,7 @@ if __name__ == "__main__":
     # main()
     clusterService=ClusterService()
     clusterService.applyKmeans(2)
+    clusterService.showGraph()
     
 
     
