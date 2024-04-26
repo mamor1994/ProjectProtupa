@@ -1,4 +1,6 @@
 import numpy as np
+import warnings
+np.warnings=warnings
 class TestArray:
     def __init__(self) -> None:
         pass

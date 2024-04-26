@@ -40,7 +40,7 @@ if __name__ == "__main__":
     # testUtils.testRegex()
     # main()
     clusterService=ClusterService()
-    clusterService.applyKmeans()
+    clusterService.applyKmeans(2)
     
 
     
