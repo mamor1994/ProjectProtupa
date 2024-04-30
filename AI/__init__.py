@@ -1,1 +1,1 @@
-from . import TrainModel
+from . import TrainModel,ClusterModelTrainer

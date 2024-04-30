@@ -1,43 +1,50 @@
-from sklearn.metrics import pairwise_distances
-import tensorflow as tf
-import numpy as np
+# import numpy as np
+# from sklearn.model_selection import train_test_split
+# import tensorflow as tf
 
-class TrainModel:
-    def __init__(self,distance_matrix,num_users,k_neighbors,binary_R) -> None:
-        self._distance_matrix=distance_matrix
-        self._k_nearest_neighbors=None
-        self._k_neighbors=k_neighbors
-        self._binary_R=binary_R
-        self._num_users=num_users
-        self.calculateKNeighbors()
+# class TrainModel:
+#     def __init__(self, user_data, k_neighbors, ratings):
+#         self.user_data = user_data  # Το σύνολο των διανυσμάτων χαρακτηριστικών των χρηστών
+#         self.k_neighbors = k_neighbors  # Αριθμός πλησιέστερων γειτόνων
+#         self.ratings = ratings  # Οι αξιολογήσεις των χρηστών
 
+#     def calculateKNeighbors(self):
+#             k=self._k_neighbors
+#             self._k_nearest_neighbors = np.argsort(self._distance_matrix, axis=1)[:, 1:k+1]
 
-    def calculateKNeighbors(self):
-        k=self._k_neighbors
-        self._k_nearest_neighbors = np.argsort(self._distance_matrix, axis=1)[:, 1:k+1]
+#     def split_data(self, test_size=0.2):
+#         # Διαχωρισμός των δεδομένων σε εκπαιδευτικό και δοκιμαστικό σετ
+#         self.train_data, self.test_data, self.train_labels, self.test_labels = train_test_split(
+#             self.user_data, self.ratings, test_size=test_size, random_state=42
+#         )
 
-    
+#     def build_model(self, input_dim):
+#         # Δημιουργία του νευρωνικού δικτύου
+#         model = tf.keras.Sequential([
+#             tf.keras.layers.Dense(128, activation='relu', input_dim=input_dim),
+#             tf.keras.layers.Dense(64, activation='relu'),
+#             tf.keras.layers.Dense(1)  # Υποθέτοντας ότι προβλέπουμε μία συνεχή τιμή αξιολόγησης
+#         ])
+#         model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mean_absolute_error'])
+#         return model
 
-    def build_model(input_dim, output_dim):
-        model = tf.keras.Sequential([
-            tf.keras.layers.Dense(128, activation='relu', input_dim=input_dim),
-            tf.keras.layers.Dense(64, activation='relu'),
-            tf.keras.layers.Dense(output_dim)
-        ])
-        model.compile(optimizer='adam', loss='mean_squared_error')
-        return model
-    
-    def train_model(self):
-        k_nearest_neighbors = self._k_nearest_neighbors
-        num_users=self._num_users
-        binary_R=self._binary_R
-        # Για κάθε χρήστη
-        for user_idx in range(num_users):
-            # Αξιολογήσεις των πλησιέστερων γειτόνων
-            neighbors_idx = k_nearest_neighbors[user_idx]
-            input_features = binary_R[neighbors_idx].mean(axis=0)  # Μέση τιμή αξιολογήσεων των γειτόνων
-            target_ratings = binary_R[user_idx]
-            
-            # Δημιουργία και εκπαίδευση μοντέλου
-            model = self.build_model(input_features.shape[0], target_ratings.shape[0])
-            model.fit(input_features.reshape(1, -1), target_ratings.reshape(1, -1), epochs=10)
+#     def train_and_evaluate(self):
+#         model = self.build_model(self.train_data.shape[1])
+#         history = model.fit(self.train_data, self.train_labels, epochs=10, validation_data=(self.test_data, self.test_labels), verbose=0)
+#         return history
+
+# # Παράδειγμα δεδομένων
+# num_users = 100
+# features_per_user = 20  # Αριθμός χαρακτηριστικών ανά χρήστη
+# k_neighbors = 5
+# user_data = np.random.rand(num_users, features_per_user * k_neighbors)  # Παράδειγμα συγκεντρωτικών δεδομένων γειτόνων
+# ratings = np.random.rand(num_users, 1)  # Παράδειγμα αξιολογήσεων χρηστών
+
+# # Δημιουργία και εκπαίδευση του μοντέλου
+# trainer = TrainModel(user_data, k_neighbors, ratings)
+# trainer.split_data()
+# history = trainer.train_and_evaluate()
+
+# # Εκτύπωση αποτελεσμάτων
+# print("Μέσο Απόλυτο Σφάλμα (Εκπαίδευση):", history.history['mean_absolute_error'])
+# print("Μέσο Απόλυτο Σφάλμα (Έλεγχος):", history.history['val_mean_absolute_error'])

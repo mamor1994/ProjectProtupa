@@ -1,6 +1,6 @@
 import numpy as np
 from Tests.TestArray import TestArray
-class Jaccard:
+class JaccardSimilar:
     def __init__(self):
         testArray = TestArray()
         self._R=testArray.getArray()

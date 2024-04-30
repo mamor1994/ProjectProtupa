@@ -1,9 +1,11 @@
 from Services.ImportService import ImportService
 from Services.UsersService import UsersService
 from Services.ClusterService import ClusterService
-from JaccardMetric.JaccardDistance import Jaccard
+from JaccardMetric.JaccardDistance import JaccardSimilar
 from Context.Context import Context
-from AI.TrainModel import TrainModel
+# from AI.TrainModel import TrainModel
+from AI.ClusterModelTrainer import ClusterModelTrainer
+from Tests.TestArray import TestArray
 
 
 import sys
@@ -25,6 +27,12 @@ def main():
     printMovieTitles(context)
     
 
+def kMeans():
+    # clusterService=ClusterService()
+    # clusterService.initMetric(clusterService.calculateEuclideanDistance)
+    # clusterService.applyKmeans(2)
+    # clusterService.showGraph()
+    pass
 
 def printMovieTitles(context=Context):
     movies = context.moviesRepository.Movies
@@ -42,15 +50,19 @@ if __name__ == "__main__":
     # main()
     
     
-    # clusterService=ClusterService()
-    # clusterService.initMetric(clusterService.calculateEuclideanDistance)
-    # clusterService.applyKmeans(2)
-    # clusterService.showGraph()
-    
-    
-    jaccard=Jaccard()
-    distance_matrix = jaccard.vectorized_jaccard_distance()
+  
+    testArray = TestArray()
+    ratings = testArray.getArray()
+    jaccardSimilar=JaccardSimilar()
+    distance_matrix = jaccardSimilar.vectorized_jaccard_distance()
     print("jaccard=",distance_matrix)
-    trainModel=TrainModel(distance_matrix,jaccard.R.shape[0],4,jaccard.binary_R)
-    trainModel.build_model()
-    trainModel.train_model()
+    # trainModel=TrainModel(distance_matrix,jaccard.R.shape[0],4,jaccard.binary_R)
+    trainModel=ClusterModelTrainer(distance_matrix,ratings)
+    trainModel.calculate_k_neighbors(k=5)
+    trainModel.split_data()
+    history  = trainModel.train_model(epochs=10)
+    
+    print("Μέσο Απόλυτο Σφάλμα (Εκπαίδευση):", history.history['mean_absolute_error'])
+    print("Μέσο Απόλυτο Σφάλμα (Έλεγχος):", history.history['val_mean_absolute_error'])
+
+    

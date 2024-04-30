@@ -1,1 +1,1 @@
-from . import TestUtils, TestArray
+from . import TestArray, TestUtils, MyObject

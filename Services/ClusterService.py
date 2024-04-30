@@ -1,3 +1,4 @@
+# from Tests2.TestArray2 import TestArray2
 from Tests.TestArray import TestArray
 
 try:

@@ -1,23 +1,21 @@
 from Utils.ListUtils import ListUtils
 from Utils.StringUtils import StringUtils
-class MyObject:
-    def __init__(self, id, name):
-        self.Id = id
-        self.Name = name
-
-objects = [MyObject(1, "Alice"), 
-        #    MyObject(2, "Bob"), 
-           MyObject(3, "Amélie 2001.csv")
-           ]
+from .MyObject import MyObject
 
 
 
 
 
 
-class TestUtils:
+
+class TestUtils2:
     def __init__(self):
-        self._objects = objects
+        
+        self.objects = [MyObject(1, "Alice"), 
+                #    MyObject(2, "Bob"), 
+                MyObject(3, "Amélie 2001.csv")
+                ]
+        # self._objects = 
         # Sort the list by the `id` attribute if not already sorted
         self._objects.sort(key=lambda x: x.Id)
         
