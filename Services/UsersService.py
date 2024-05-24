@@ -4,6 +4,7 @@ from Repositories.ReviewsRepository import ReviewsRepository
 from Repositories.UsersRepository import UsersRepository
 from Models.User import User
 from Models.Review import Review
+import numpy as np
 
 
 class UsersService:
@@ -37,9 +38,19 @@ class UsersService:
 
     def mapReviewToUser(self,review:Review):
         user=self._usersRepository.findUserByUsername(review.username)
+        moviesLength = len(self._moviesRepository.Movies)
+        movieTitle = review.movieTitle       
+        movie = self._moviesRepository.findMovieByTitle(movieTitle)      
+        if movie is not None:
+            index = movie.Id-1
+
         if user is None:
-            user=User()        
-            user.Username=review.username                
+            user=User(moviesLength)        
+            user.Username=review.username
+            if movie is not None:
+                user.Ratings[index]=float(review.rating)
+            else:
+                print("movie is none with title:",movieTitle)                
         user.reviews.append(review)
         user.total_reviews=len(user.reviews)
         self._usersRepository.save(user)
@@ -52,4 +63,9 @@ class UsersService:
             if user._total_reviews>=min and user._total_reviews<=max:
                 filteredUsers.append(user)            
         return filteredUsers
+    
+    def exractRatings(self):
+        # ratings = np.zeros(len(self._usersRepository.Users),len(self._usersRepository.Users[0]))
+        # ratings=np.vstack()
+        pass
 

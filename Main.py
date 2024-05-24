@@ -14,6 +14,10 @@ import csv
 
 
 def main():
+    pass
+
+#part 1    
+def initData():
     context = Context()  
     importService = ImportService()
     importService.importFromFolder2()
@@ -25,13 +29,13 @@ def main():
     
     usersService.printData()
     printMovieTitles(context)
-    
 
+#part 2
 def kMeans():
-    # clusterService=ClusterService()
-    # clusterService.initMetric(clusterService.calculateEuclideanDistance)
-    # clusterService.applyKmeans(2)
-    # clusterService.showGraph()
+    clusterService=ClusterService()
+    clusterService.initMetric(clusterService.calculateEuclideanDistance) #or cosinedistance
+    clusterService.applyKmeans(2)
+    clusterService.showGraph()
     pass
 
 def printMovieTitles(context=Context):
@@ -39,6 +43,26 @@ def printMovieTitles(context=Context):
     for movie in movies:
         print(movie.Title)
 
+#last part-->b,c,d
+def jaccard_similar():
+    jaccardSimilar=JaccardSimilar()
+    distance_matrix = jaccardSimilar.vectorized_jaccard_distance()    
+    print("jaccard=",distance_matrix)
+     # trainModel=TrainModel(distance_matrix,jaccard.R.shape[0],4,jaccard.binary_R)
+    ratings = get_ratings()
+    trainModel=ClusterModelTrainer(distance_matrix,ratings)
+    trainModel.calculate_k_neighbors(k=5)
+    trainModel.split_data()
+    history  = trainModel.train_model(epochs=10)
+    
+    print("Μέσο Απόλυτο Σφάλμα (Εκπαίδευση):", history.history['mean_absolute_error'])
+    print("Μέσο Απόλυτο Σφάλμα (Έλεγχος):", history.history['val_mean_absolute_error'])
+    
+
+def get_ratings():
+    testArray = TestArray()
+    ratings = testArray.getArray()
+    return ratings
 
 if __name__ == "__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')   
@@ -50,19 +74,9 @@ if __name__ == "__main__":
     # main()
     
     
-  
-    testArray = TestArray()
-    ratings = testArray.getArray()
-    jaccardSimilar=JaccardSimilar()
-    distance_matrix = jaccardSimilar.vectorized_jaccard_distance()
-    print("jaccard=",distance_matrix)
-    # trainModel=TrainModel(distance_matrix,jaccard.R.shape[0],4,jaccard.binary_R)
-    trainModel=ClusterModelTrainer(distance_matrix,ratings)
-    trainModel.calculate_k_neighbors(k=5)
-    trainModel.split_data()
-    history  = trainModel.train_model(epochs=10)
-    
-    print("Μέσο Απόλυτο Σφάλμα (Εκπαίδευση):", history.history['mean_absolute_error'])
-    print("Μέσο Απόλυτο Σφάλμα (Έλεγχος):", history.history['val_mean_absolute_error'])
+    # jaccard_similar()
+    initData()
+   
+   
 
     

@@ -14,6 +14,8 @@ class Mapper:
         dto = ReviewsPerMovieDTO()
         dto.username = row[0]
         dto.rating = row[1]
+        if(dto.rating=="Null" or dto.rating is None):
+            dto.rating=0
         dto.helpful = row[2]
         dto.total = row[3]
         dto.date = row[4]
@@ -29,9 +31,10 @@ class Mapper:
 
     def reviewsPerMovieDTOToReview(self,dto=ReviewsPerMovieDTO):
         review = Review()
-        review.username=dto.username
+        review.username=dto.username        
         review.rating=dto.rating        
-        review.date=dto.date                        
+        review.date=dto.date
+        review.movieTitle=self.convertFileNameToMovieTitle(dto.movieTitle)#dto.movieTitle                        
         return review
     
     def reviewsPerMovieDTOToUser(self,dto=ReviewsPerMovieDTO):

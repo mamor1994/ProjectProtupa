@@ -51,8 +51,7 @@ class MoviesRepository:
 
     def save(self,movie=Movie):                
         tempMovie = self.findMovieByTitle(movie.Title)
-        if tempMovie is None:
-            
+        if tempMovie is None:            
             self.addMovie(movie)            
             return                        
         index = self.findById(tempMovie.Id)                

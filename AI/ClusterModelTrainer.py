@@ -31,7 +31,7 @@ class ClusterModelTrainer:
         return model
 
     def train_model(self, epochs=10): #το epochs είναι συντελεστής, όσο πιο μεγάλος είναι τόσο πιο ανακριβή μπορεί να γίνουν τα αποτελέσματα
-        model = self.build_model(8)  # Χρησιμοποιούμε τον αριθμό χρηστών ως input_dim
+        model = self.build_model(8)  # Χρησιμοποιούμε τον αριθμό ταινιών ως input_dim
         print(self.train_data.shape)
         history = model.fit(self.train_data, self.train_labels, epochs=epochs, 
                             validation_data=(self.test_data, self.test_labels), verbose=1)

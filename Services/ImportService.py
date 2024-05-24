@@ -35,7 +35,7 @@ class ImportService:
         fileReader = FileReader("1_movies_per_genre")
         rowsDict = fileReader.retrieveData()
         self.parseMoviesDictToDTOs(rowsDict)
-        self.parseMovieDetailsDTOsToMoviesRepository()
+        # self.parseMovieDetailsDTOsToMoviesRepository()
 
 
     def parseReviewsDictToDTOS(self,rowsDict):

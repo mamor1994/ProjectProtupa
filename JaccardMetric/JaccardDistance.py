@@ -6,6 +6,7 @@ class JaccardSimilar:
         self._R=testArray.getArray()
         self._binary_R=None
 
+    
     @property
     def R(self):
         return self._R

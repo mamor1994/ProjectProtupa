@@ -31,6 +31,7 @@ class FileReader:
     def readCSV(self,file_path):
         with open(file_path, mode='r', encoding='utf-8') as file:
             csv_reader = csv.reader(file)
+            next(csv_reader)
             rows=[]                        
             for row in csv_reader:
                 rows.append(row)

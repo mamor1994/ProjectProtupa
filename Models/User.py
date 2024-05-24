@@ -1,9 +1,11 @@
+import numpy as np
 class User:
-    def __init__(self) -> None:
+    def __init__(self,moviesLength) -> None:
         self._userId=0
         self._username=""
         self._total_reviews=0      
         self._reviews=[]
+        self._ratings=np.zeros(moviesLength)
    
     @property
     def Id(self):
@@ -36,3 +38,11 @@ class User:
     @reviews.setter
     def reviews(self, value):
         self._reviews = value
+
+    @property
+    def Ratings(self):
+        return self._ratings
+
+    @Ratings.setter
+    def Id(self, value):
+        self._ratings = value

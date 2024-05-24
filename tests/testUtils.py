@@ -8,7 +8,7 @@ from .MyObject import MyObject
 
 
 
-class TestUtils2:
+class TestUtils:
     def __init__(self):
         
         self.objects = [MyObject(1, "Alice"), 
