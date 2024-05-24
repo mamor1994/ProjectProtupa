@@ -5,7 +5,7 @@ class User:
         self._username=""
         self._total_reviews=0      
         self._reviews=[]
-        self._ratings=np.zeros(moviesLength)
+        self._ratings=np.zeros(moviesLength,dtype=int)
    
     @property
     def Id(self):
@@ -44,5 +44,5 @@ class User:
         return self._ratings
 
     @Ratings.setter
-    def Id(self, value):
+    def Ratings(self, value):
         self._ratings = value

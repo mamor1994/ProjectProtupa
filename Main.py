@@ -27,8 +27,12 @@ def initData():
     usersService.writeReviewDataToUsers()
     context = usersService.context
     
-    usersService.printData()
-    printMovieTitles(context)
+    # usersService.printData()
+    # printMovieTitles(context)
+
+    #get ratings as numpy array (rows=number of users,cols=ratings to all movies)
+    #if a user didn't rate a movie, rating=0, also the order sequence is right because we use as index the movie.Id
+    ratings = usersService.exractRatings()
 
 #part 2
 def kMeans():
