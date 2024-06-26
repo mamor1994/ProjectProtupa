@@ -100,7 +100,7 @@ class ClusterService:
         # reduced_data = pca.fit_transform(R)
 
         # Generate a color palette
-        colors = plt.cm.get_cmap('viridis', len(clusters))
+        colors = plt.get_cmap('viridis', len(clusters))
 
         # Plot each cluster
         for idx, cluster in enumerate(clusters):

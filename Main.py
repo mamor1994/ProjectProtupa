@@ -13,7 +13,11 @@ import io
 import csv
 
 
+
 def main():
+    ratingsReal = initData()
+    # beginAppWithRealData(ratingsReal)
+    beginAppWithFakeData()
     pass
 
 #part 1    
@@ -33,10 +37,13 @@ def initData():
     #get ratings as numpy array (rows=number of users,cols=ratings to all movies)
     #if a user didn't rate a movie, rating=0, also the order sequence is right because we use as index the movie.Id
     ratings = usersService.exractRatings()
+    ratingsFiltered=usersService.filterRatings(5,8)
+    return ratingsFiltered
 
 #part 2
-def kMeans():
+def kMeans(ratings):
     clusterService=ClusterService()
+    clusterService._R=ratings
     clusterService.initMetric(clusterService.calculateEuclideanDistance) #or cosinedistance
     clusterService.applyKmeans(2)
     clusterService.showGraph()
@@ -48,8 +55,9 @@ def printMovieTitles(context=Context):
         print(movie.Title)
 
 #last part-->b,c,d
-def jaccard_similar():
+def jaccard_similar(ratings):
     jaccardSimilar=JaccardSimilar()
+    jaccardSimilar.R=ratings
     distance_matrix = jaccardSimilar.vectorized_jaccard_distance()    
     print("jaccard=",distance_matrix)
      # trainModel=TrainModel(distance_matrix,jaccard.R.shape[0],4,jaccard.binary_R)
@@ -68,9 +76,21 @@ def get_ratings():
     ratings = testArray.getArray()
     return ratings
 
+def beginAppWithRealData(ratings):
+
+    kMeans(ratings)
+    pass
+
+
+def beginAppWithFakeData():
+    testArray = TestArray()
+    ratings = testArray.getArray()
+    kMeans(ratings)
+    pass
+
 if __name__ == "__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')   
-    
+    main()
     # testUtils.testHashMap()
     # testUtils.testBinarySearchByName()
     # testUtils.testBinarySearchByNumber()
@@ -79,7 +99,7 @@ if __name__ == "__main__":
     
     
     # jaccard_similar()
-    initData()
+    
    
    
 

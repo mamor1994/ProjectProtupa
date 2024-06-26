@@ -77,6 +77,7 @@ class UsersService:
                 filteredUsers.append(user)            
         return filteredUsers
     
+    #μας δίνει την επιθυμητή μορφή του numpy array για επεξεργασία δεδομένων
     def exractRatings(self):
         # ratings = np.zeros(len(self._usersRepository.Users),len(self._usersRepository.Users[0]))
         users = len(self._usersRepository.Users)
