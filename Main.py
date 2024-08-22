@@ -8,6 +8,7 @@ from AI.ClusterModelTrainer import ClusterModelTrainer
 from Tests.TestArray import TestArray
 
 
+
 import sys
 import io
 import csv
@@ -16,8 +17,8 @@ import csv
 
 def main():
     ratingsReal = initData()
-    # beginAppWithRealData(ratingsReal)
-    beginAppWithFakeData()
+    beginAppWithRealData(ratingsReal)
+    # beginAppWithFakeData()
     pass
 
 #part 1    
@@ -36,8 +37,10 @@ def initData():
 
     #get ratings as numpy array (rows=number of users,cols=ratings to all movies)
     #if a user didn't rate a movie, rating=0, also the order sequence is right because we use as index the movie.Id
-    ratings = usersService.exractRatings()
-    ratingsFiltered=usersService.filterRatings(5,8)
+    usersService.exractRatings()
+    ratingsFiltered=usersService.filterRatings(1,2)
+    # ratingsFiltered = usersService._ratings
+    print(ratingsFiltered)
     return ratingsFiltered
 
 #part 2
@@ -45,7 +48,7 @@ def kMeans(ratings):
     clusterService=ClusterService()
     clusterService._R=ratings
     clusterService.initMetric(clusterService.calculateEuclideanDistance) #or cosinedistance
-    clusterService.applyKmeans(2)
+    clusterService.applyKmeans(200)
     clusterService.showGraph()
     pass
 

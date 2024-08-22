@@ -94,6 +94,13 @@ class UsersService:
         self._ratings=ratings
         
     def filterRatings(self,min,max):
-        within_range = (self._ratings>=min) & (self._ratings<=max)
-        rows_within_range = np.all(within_range,axis=1)
-        filteredRatings = self._ratings[rows_within_range]
+
+        row_mask = np.any((self._ratings >= min) & (self._ratings <= max), axis=1)
+        col_mask = np.any((self._ratings >= min) & (self._ratings <= max), axis=0)
+    
+        # Filter rows and columns based on the masks
+        filteredRatings = self._ratings[row_mask][:, col_mask]
+        # within_range = (self._ratings>=min) & (self._ratings<=max)
+        # rows_within_range = np.all(within_range,axis=1)
+        # filteredRatings = self._ratings[rows_within_range]
+        return filteredRatings
