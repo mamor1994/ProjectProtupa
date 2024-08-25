@@ -1,6 +1,7 @@
 # from Tests2.TestArray2 import TestArray2
 from Tests.TestArray import TestArray
-
+from joblib import Parallel, delayed
+from Logger.Logger import Logger
 try:
     from pyclustering.cluster.kmeans import kmeans
     from pyclustering.cluster.center_initializer import kmeans_plusplus_initializer
@@ -14,12 +15,13 @@ except ImportError as e:
 import math
 
 class ClusterService:
-    def __init__(self):
+    def __init__(self,logger=Logger):
         testArray = TestArray()
         self._R=testArray.getArray()
         self._clusters=None
         self._centers=None
         self._metric = None
+        self._logger=logger
 
     @property
     def Clusters(self):
@@ -83,8 +85,13 @@ class ClusterService:
         self._centers=final_centers
         
         # Display results
-        print("Clusters:", clusters)
-        print("Centers:", final_centers)
+        self._logger.appendToFile("clusters.txt")
+        self._logger.writeLine(("Number of Clusters:"+ str(len(clusters))))
+        self._logger.writeObject("clusters:",final_centers,4)
+        self._logger.close()
+        # print("Number of Clusters:", len(clusters))
+        # print("Centers:", final_centers)
+
 
     def showGraph(self):
         clusters = self._clusters
@@ -117,5 +124,27 @@ class ClusterService:
         plt.ylabel('Principal Component 2')
         plt.legend()
         plt.show()
+
+    def create_distance_matrix(self,ratings):
+        R = ratings
+        num_users = R.shape[0]
+        distance_matrix = np.zeros((num_users, num_users))
+
+        # Use the custom metric function
+        metric_func = self._metric
+
+        def compute_distance(i, j):
+            distance = metric_func(R[i], R[j])
+            return i, j, distance
+
+        # Parallel computation of the distance matrix
+        results = Parallel(n_jobs=-1)(delayed(compute_distance)(i, j) for i in range(num_users) for j in range(i + 1, num_users))
+
+        # Populate the distance matrix
+        for i, j, distance in results:
+            distance_matrix[i][j] = distance
+            distance_matrix[j][i] = distance  # Symmetric matrix
+
+        return distance_matrix
 
     

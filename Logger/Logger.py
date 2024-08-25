@@ -1,14 +1,17 @@
 from Logger.Encoder import Encoder
 import sys
 import json
+from pathlib import Path
 
 class Logger:
-    def __init__(self):        
+    def __init__(self,repo_path):        
         self._stdout = sys.stdout
+        self._repo_path=repo_path
+        self._outputPath = Path(repo_path,"Output")
         pass
 
     def appendToFile(self,filename):
-        self._stdout=open(filename,'a')
+        self._stdout=open(Path(self._outputPath,filename),'a')
         
     
     def writeLine(self,line):

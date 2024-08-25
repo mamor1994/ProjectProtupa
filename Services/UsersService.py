@@ -4,16 +4,20 @@ from Repositories.ReviewsRepository import ReviewsRepository
 from Repositories.UsersRepository import UsersRepository
 from Models.User import User
 from Models.Review import Review
+from Logger.Logger import Logger
+import os
+from pathlib import Path
 import numpy as np
 
 
 class UsersService:
-    def __init__(self,context=Context):
+    def __init__(self,context=Context,logger=Logger):
         self._context=context
         self._usersRepository:UsersRepository=context.usersRepository
         self._moviesRepository:MoviesRepository=context.moviesRepository
         self._reviewsRepository:ReviewsRepository=context.reviewsRepository
         self._ratings = None
+        self._logger = logger
 
     @property
     def context(self):
@@ -41,8 +45,16 @@ class UsersService:
         # for user in self._usersRepository.Users:
         #     print(user.Username,"-->",user.total_reviews)
         # print(len(self._usersRepository.Users))
-        print("Ο αριθμός των χρηστών U είναι",len(self._usersRepository.Users))
-        print("Ο αριθμός των ταινιών I είναι",len(self._moviesRepository.Movies))
+        
+        line1="Ο αριθμός των χρηστών U είναι:"+str(len(self._usersRepository.Users))
+        line2="Ο αριθμός των ταινιών I είναι:"+str(len(self._moviesRepository.Movies))
+       
+        self._logger.appendToFile("Part1.txt")
+        self._logger.writeLine(line1)
+        self._logger.writeLine(line2)
+        self._logger.close()
+        print(line1)
+        print(line2)
         pass
 
     def mapReviewToUser(self,review:Review):

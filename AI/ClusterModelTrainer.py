@@ -1,13 +1,15 @@
 import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
+from Logger.Logger import Logger
 
 class ClusterModelTrainer:
-    def __init__(self, distance_matrix, ratings):
+    def __init__(self, distance_matrix, ratings,logger=Logger):
         self._distance_matrix = distance_matrix  # Προϋπολογισμένος πίνακας αποστάσεων
         self.ratings = ratings  # Ο πίνακας αξιολογήσεων χρστών (με τα μηδενικά)
         self._k_nearest_neighbors = None  # Θα υπολογιστεί στη συνέχεια
         self._num_users = ratings.shape[0]  # Αριθμός χρηστών βάσει των αξιολογήσεων
+        self._logger=logger
 
     def calculate_k_neighbors(self, k):
         # Ενημερώνουμε τον αριθμό των γειτόνων που θέλουμε να εξετάσουμε
