@@ -1,9 +1,8 @@
 import numpy as np
 from Tests.TestArray import TestArray
 class JaccardSimilar:
-    def __init__(self):
-        testArray = TestArray()
-        self._R=testArray.getArray()
+    def __init__(self):        
+        self._R=None
         self._binary_R=None
 
     
@@ -66,7 +65,7 @@ class JaccardSimilar:
         union = row_sums[:, None] + row_sums - intersection
 
         # Avoid division by zero and compute Jaccard index
-        np.fill_diagonal(union, 1)  # Prevent division by zero on diagonal
+        np.fill_diagonal(union, row_sums)  # Prevent division by zero on diagonal
         jaccard_index = intersection / union
         distance_matrix = 1 - jaccard_index
 

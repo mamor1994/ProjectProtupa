@@ -18,11 +18,11 @@ class Logger:
         self._stdout.write(line+'\n')
 
     def writeObject(self,line,object,indent):
-        encoder = Encoder()
-        serializedObject=encoder.encode_obj(object)
+        # encoder = Encoder()
+        # serializedObject=encoder.encode_obj(object)
         #serializedObject = json.dumps(object,indent=indent)
         self._stdout.write(line+'\n')
-        self._stdout.write(json.dumps(serializedObject,indent=indent))
+        self._stdout.write(json.dumps(object,indent=indent))
     
     def close(self):
         self._stdout.close()

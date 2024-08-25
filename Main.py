@@ -21,9 +21,9 @@ logger = Logger(current_repo_path)
 
 
 def main():
-    ratingsReal = initData()
-    beginAppWithRealData(ratingsReal)
-    # beginAppWithFakeData()
+    # ratingsReal = initData()
+    # beginAppWithRealData(ratingsReal)
+    beginAppWithFakeData()
     pass
 
 #part 1    
@@ -61,7 +61,7 @@ def kMeans(ratings):
     clusterService=ClusterService(logger)
     clusterService._R=ratings
     clusterService.initMetric(clusterService.calculateEuclideanDistance) #or cosinedistance
-    clusterService.applyKmeans(20)
+    clusterService.applyKmeans(4)
     clusterService.showGraph()
     
     
@@ -109,7 +109,7 @@ def beginAppWithFakeData():
     testArray = TestArray()
     ratings = testArray.getArray()
     kMeans(ratings)
-    
+    jaccard_similar(ratings)
     pass
 
 if __name__ == "__main__":
