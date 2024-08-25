@@ -11,7 +11,7 @@ class Logger:
         pass
 
     def appendToFile(self,filename):
-        self._stdout=open(Path(self._outputPath,filename),'a')
+        self._stdout=open(Path(self._outputPath,filename),'a', encoding='utf-8')
         
     
     def writeLine(self,line):

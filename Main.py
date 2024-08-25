@@ -76,7 +76,11 @@ def jaccard_similar(ratings):
     jaccardSimilar=JaccardSimilar()
     jaccardSimilar.R=ratings
     distance_matrix = jaccardSimilar.vectorized_jaccard_distance()    
-    print("jaccard=",distance_matrix)
+    logger.appendToFile("jaccard.txt")    
+    logger.writeObject("jaccard",distance_matrix.tolist(),4)
+    logger.close()
+    
+    return distance_matrix
      # trainModel=TrainModel(distance_matrix,jaccard.R.shape[0],4,jaccard.binary_R)
     # ratings = get_ratings()
    
@@ -101,7 +105,8 @@ def get_ratings():
 def beginAppWithRealData(ratings):
 
     kMeans(ratings)
-    # trainModel,ratings)
+    distance_matrix=jaccard_similar(ratings)
+    trainModel(distance_matrix,ratings)
     pass
 
 
@@ -109,7 +114,8 @@ def beginAppWithFakeData():
     testArray = TestArray()
     ratings = testArray.getArray()
     kMeans(ratings)
-    jaccard_similar(ratings)
+    distance_matrix=jaccard_similar(ratings)
+    trainModel(distance_matrix,ratings)
     pass
 
 if __name__ == "__main__":
