@@ -147,7 +147,27 @@ def trainModel(distance_matrix,ratings):
     return (mean_absolute_error,val_mean_absolute_error)
 
 def calculateErrorRate(mean_absolute_error,val_mean_absolute_error):
-    
+    index = 0
+    mean_dt=[]
+    val_dt=[]
+    val_mean_dt=[]
+    for m_error in mean_absolute_error:
+        if index+1<len(mean_absolute_error):
+            mean_dt.append(mean_absolute_error[index+1]-m_error)
+            val_dt.append(val_mean_absolute_error[index+1]-val_mean_absolute_error[index])
+        val_mean_dt.append(val_mean_absolute_error[index]-mean_absolute_error[index])
+        index+=1
+    mean_dt_avg=sum(mean_dt)/len(mean_dt)
+    val_dt_avg=sum(val_dt)/len(val_dt)
+
+    print("Ρυθμός μεταβολής του Μέσου Απολύτου Σφάλαμτος(Εκπαίδευση):",mean_dt_avg)
+    print("Ρυθμός μεταβολής του Μέσου Απολύτου Σφάλαμτος(Έλεγχος):",val_dt_avg)
+    if abs(val_dt_avg - mean_dt_avg)<=0.01:
+        print("Το μοντέλο αποδίδει παρόμοια στα δεδομένα εκπαίδευσης και επικύρωσης, υποδεικνύοντας καλή γενίκευση.")
+    elif val_dt_avg>mean_dt_avg:
+        print("Το μοντέλο μπορεί να υπερπροσαρμόζεται. Αποδίδει καλά στα δεδομένα εκπαίδευσης αλλά χειρότερα στα δεδομένα επικύρωσης.")
+    elif val_dt_avg<mean_dt_avg:
+        print("Αυτό είναι λιγότερο συχνό αλλά μπορεί να συμβεί αν το σύνολο επικύρωσης είναι ευκολότερο στην πρόβλεψη ή αν η κανονικοποίηση λειτουργεί αποτελεσματικά στο σύνολο επικύρωσης.")
     pass
 
 def beginAppWithRealData():
@@ -166,6 +186,7 @@ def beginApp(ratings):
     kMeans(ratings)
     distance_matrix=jaccard_similar(ratings)
     (mean_absolute_error,val_mean_absolute_error) = trainModel(distance_matrix,ratings)
+    calculateErrorRate(mean_absolute_error,val_mean_absolute_error)
 
 if __name__ == "__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')   
