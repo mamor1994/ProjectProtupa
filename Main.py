@@ -21,7 +21,7 @@ logger = Logger(current_repo_path)
 
 
 def main():
-    # ratingsReal = initData()
+    ratingsReal = initData()
     # beginAppWithRealData(ratingsReal)
     beginAppWithFakeData()
     pass
@@ -43,6 +43,7 @@ def initData():
     #get ratings as numpy array (rows=number of users,cols=ratings to all movies)
     #if a user didn't rate a movie, rating=0, also the order sequence is right because we use as index the movie.Id
     usersService.exractRatings()    
+    usersService.showDatesGraph()
     ratingsFiltered=usersService.filterRatings(2,3)
     printPart1(ratingsFiltered)
     # ratingsFiltered = usersService._ratings

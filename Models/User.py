@@ -6,6 +6,7 @@ class User:
         self._total_reviews=0      
         self._reviews=[]
         self._ratings=np.zeros(moviesLength,dtype=int)
+        self._timestamps=np.full(moviesLength,'',dtype=object)
    
     @property
     def Id(self):
@@ -46,3 +47,11 @@ class User:
     @Ratings.setter
     def Ratings(self, value):
         self._ratings = value
+
+    @property
+    def TimeStamps(self):
+        return self._timestamps
+
+    @TimeStamps.setter
+    def TimeStamps(self,value):
+        self._timestamps=value

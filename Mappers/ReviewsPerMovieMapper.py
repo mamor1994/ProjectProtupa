@@ -32,7 +32,7 @@ class Mapper:
     def reviewsPerMovieDTOToReview(self,dto=ReviewsPerMovieDTO):
         review = Review()
         review.username=dto.username        
-        review.rating=dto.rating        
+        review.rating=dto.rating               
         review.date=dto.date
         review.movieTitle=self.convertFileNameToMovieTitle(dto.movieTitle)#dto.movieTitle                        
         return review

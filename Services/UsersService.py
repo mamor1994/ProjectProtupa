@@ -7,8 +7,10 @@ from Models.Review import Review
 from Logger.Logger import Logger
 import os
 from pathlib import Path
+from datetime import datetime
 import numpy as np
-
+import pandas as pd
+import matplotlib.pyplot as plt
 
 class UsersService:
     def __init__(self,context=Context,logger=Logger):
@@ -72,6 +74,10 @@ class UsersService:
             index = movie.Id-1
             ratings = user.Ratings
             ratings[index]=int(review.rating)
+            timestamps = user.TimeStamps
+            # timestamps[index] = datetime.strptime(review.date, '%d %B %Y')
+            timestamps[index] = review.date
+            user.TimeStamps=timestamps
             user.Ratings=ratings
         else:
             print("movie is none with title:",movieTitle)      
@@ -116,3 +122,44 @@ class UsersService:
         # rows_within_range = np.all(within_range,axis=1)
         # filteredRatings = self._ratings[rows_within_range]
         return filteredRatings
+    
+    
+
+    def showDatesGraph(self):
+        first_dates=[]
+        last_dates=[]
+        for user in self._usersRepository.Users:
+            timestamps=user.TimeStamps
+            ratings = user.Ratings
+            num_of_users=len(self._usersRepository.Users)
+            timestamps_dt=np.array([datetime.strptime(date, '%d %B %Y') if date else None for date in timestamps])
+            timestamps_dt = timestamps_dt[timestamps_dt != np.array(None)]
+            first_dates.append(min(timestamps_dt))
+            last_dates.append(max(timestamps_dt))
+
+        first_dates=pd.to_datetime(first_dates)
+        last_dates=pd.to_datetime(last_dates)
+        # print("first_dates",first_dates)
+        # print("last_dates",last_dates)
+        # self._logger.appendToFile("timestamps.txt")
+        # self._logger.writeObject("first dates",first_dates.tolist(),4)
+        # self._logger.close()
+        time_range = (last_dates-first_dates).days
+
+        # Δημιουργία ιστογράμματος για το χρονικό εύρος των αξιολογήσεων
+        plt.figure(figsize=(10, 6))
+        plt.hist(time_range.dropna(), bins=20, color='green', edgecolor='black')
+        plt.title('Histogram of Time Range of Ratings per User')
+        plt.xlabel('Time Range (days)')
+        plt.ylabel('Frequency')
+        plt.grid(True)
+
+        #  # Μορφοποίηση του άξονα χ για να εμφανίζει μήνες ή έτη
+        # ax = plt.gca()
+        # ax.xaxis_date()  # Ορίζει τον άξονα x σε ημερομηνίες
+        # ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%B %Y'))  # Εμφανίζει μήνες και έτη
+
+
+
+        plt.show()
+        pass

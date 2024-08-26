@@ -32,7 +32,7 @@ class ClusterModelTrainer:
         model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mean_absolute_error'])
         return model
 
-    def train_model(self, epochs=10): #το epochs είναι συντελεστής, όσο πιο μεγάλος είναι τόσο πιο ανακριβή μπορεί να γίνουν τα αποτελέσματα
+    def train_model(self, epochs=10): #το epochs είναι συντελεστής, όσο πιο μεγάλος είναι τόσο πιο overfitting μπορεί να γίνουν τα αποτελέσματα
         model = self.build_model(len(self.ratings[0]))  # Χρησιμοποιούμε τον αριθμό ταινιών ως input_dim
         print(self.train_data.shape)
         history = model.fit(self.train_data, self.train_labels, epochs=epochs, 
