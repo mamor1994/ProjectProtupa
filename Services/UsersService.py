@@ -129,8 +129,6 @@ class UsersService:
         last_dates=[]
         for user in self._usersRepository.Users:
             timestamps=user.TimeStamps
-            ratings = user.Ratings
-            num_of_users=len(self._usersRepository.Users)
             timestamps_dt=np.array([datetime.strptime(date, '%d %B %Y') if date else None for date in timestamps])
             timestamps_dt = timestamps_dt[timestamps_dt != np.array(None)]
             first_dates.append(min(timestamps_dt))
@@ -162,6 +160,17 @@ class UsersService:
 
         plt.show()
         pass
+    
+    def showRatingsCounterGraph(self):
+        # Δημιουργία ιστογράμματος για το πλήθος αξιολογήσεων
+        ratings_count = np.count_nonzero(self.Ratings, axis=1)
+        plt.figure(figsize=(10, 6))
+        plt.hist(ratings_count, bins=20, color='blue', edgecolor='black')
+        plt.title('Histogram of Number of Ratings per User')
+        plt.xlabel('Number of Ratings')
+        plt.ylabel('Frequency')
+        plt.grid(True)
+        plt.show()
 
     def filterData(self,min,max):
         users = self._usersRepository.Users

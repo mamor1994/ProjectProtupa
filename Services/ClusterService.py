@@ -90,7 +90,7 @@ class ClusterService:
         kmeans_instance.process()
         clusters = kmeans_instance.get_clusters()
         final_centers = kmeans_instance.get_centers()
-        self.checkCenters(initial_centers,R,numOfClusters)
+        # self.checkCenters(initial_centers,R,numOfClusters)
         self._clusters=clusters
         self._centers=final_centers
         

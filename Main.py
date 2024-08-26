@@ -16,6 +16,7 @@ import csv
 import os
 import numpy as np
 
+
 current_repo_path = os.path.dirname(os.path.abspath(__file__))
 logger = Logger(current_repo_path)
 
@@ -64,9 +65,9 @@ def getArray():
 
 
 def main():
-    # ratingsReal = initData()
-    # beginAppWithRealData(ratingsReal)
-    beginAppWithFakeData()
+   
+    beginAppWithRealData()
+    # beginAppWithFakeData()
     pass
 
 #part 1    
@@ -88,6 +89,7 @@ def initData():
     usersService.filterData(100,500)
     usersService.exractRatings()    
     usersService.showDatesGraph()
+    usersService.showRatingsCounterGraph()
     # ratingsFiltered=usersService.filterRatings(2,3)
     ratingsFiltered=usersService.Ratings
     printPart1(ratingsFiltered)
@@ -107,7 +109,7 @@ def kMeans(ratings):
     clusterService=ClusterService(logger)
     clusterService._R=ratings
     clusterService.initMetric(clusterService.calculateEuclideanDistance) #or cosinedistance
-    clusterService.applyKmeans(4)
+    clusterService.applyKmeans(3)
     clusterService.showGraph()
     
     
@@ -128,7 +130,7 @@ def jaccard_similar(ratings):
     
     return distance_matrix
      # trainModel=TrainModel(distance_matrix,jaccard.R.shape[0],4,jaccard.binary_R)
-    # ratings = get_ratings()
+    
    
     
 def trainModel(distance_matrix,ratings):
@@ -140,30 +142,30 @@ def trainModel(distance_matrix,ratings):
     logger.writeObject("Μέσο Απόλυτο Σφάλμα (Εκπαίδευση):",history.history['mean_absolute_error'],4)
     logger.writeObject("Μέσο Απόλυτο Σφάλμα (Έλεγχος):",history.history['val_mean_absolute_error'],4)
     logger.close()
-    print("Μέσο Απόλυτο Σφάλμα (Εκπαίδευση):", history.history['mean_absolute_error'])
-    print("Μέσο Απόλυτο Σφάλμα (Έλεγχος):", history.history['val_mean_absolute_error'])
+    mean_absolute_error=history.history['mean_absolute_error']
+    val_mean_absolute_error=history.history['val_mean_absolute_error']
+    return (mean_absolute_error,val_mean_absolute_error)
 
-def get_ratings():
+def calculateErrorRate(mean_absolute_error,val_mean_absolute_error):
     
-    ratings = getArray()
-    return ratings
+    pass
 
-def beginAppWithRealData(ratings):
-
-    kMeans(ratings)
-    distance_matrix=jaccard_similar(ratings)
-    trainModel(distance_matrix,ratings)
+def beginAppWithRealData():
+    ratings=initData()
+    beginApp(ratings)
     pass
 
 
 def beginAppWithFakeData():
     # testArray = TestArray()
-    ratings = getArray()
-    print(ratings)
+    ratings = getArray()    
+    beginApp(ratings)
+    pass
+
+def beginApp(ratings):
     kMeans(ratings)
     distance_matrix=jaccard_similar(ratings)
-    trainModel(distance_matrix,ratings)
-    pass
+    (mean_absolute_error,val_mean_absolute_error) = trainModel(distance_matrix,ratings)
 
 if __name__ == "__main__":
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')   
