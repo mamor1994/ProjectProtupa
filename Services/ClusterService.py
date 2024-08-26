@@ -90,6 +90,7 @@ class ClusterService:
         kmeans_instance.process()
         clusters = kmeans_instance.get_clusters()
         final_centers = kmeans_instance.get_centers()
+        self.checkCenters(initial_centers,R,numOfClusters)
         self._clusters=clusters
         self._centers=final_centers
         
@@ -179,5 +180,13 @@ class ClusterService:
             centers.append(R[i])
         
         return np.array(centers)
+    
+    def checkCenters(self,centers,R,clusters):
+        centers = self.kmeans_plus_plus(R, clusters)
+        plt.scatter(R[:, 0], R[:, 1])
+        plt.scatter(centers[:, 0], centers[:, 1], c='red', marker='x')
+        plt.title("Initial Centroids")
+        plt.show()
+
 
     

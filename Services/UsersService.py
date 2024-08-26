@@ -102,7 +102,6 @@ class UsersService:
         movies = len(self._moviesRepository.Movies)
         ratings = np.zeros((users,movies),dtype=int)
         
-        
         for index,user in enumerate(self._usersRepository.Users):
             ratings[index, :]=user.Ratings
             
@@ -163,3 +162,12 @@ class UsersService:
 
         plt.show()
         pass
+
+    def filterData(self,min,max):
+        users = self._usersRepository.Users
+        filteredUsers=[]
+        for user in users:
+            if min<=np.count_nonzero(user.Ratings)<=max:
+                filteredUsers.append(user)
+        self._usersRepository.Users=filteredUsers
+        

@@ -37,6 +37,28 @@ def getArray():
             
             
     ])
+    def flatArray(R):
+        # Flatten the array to work with it easily
+        R_flat = R.flatten()
+
+        # Find the indices of non-zero elements
+        non_zero_indices = np.nonzero(R_flat)[0]
+
+        # Determine the number of elements to set to zero (e.g., 50% of non-zero elements)
+        num_to_zero = int(len(non_zero_indices) * 0.5)
+
+        # Randomly choose indices to set to zero
+        zero_indices = np.random.choice(non_zero_indices, size=num_to_zero, replace=False)
+
+        # Set the chosen indices to zero
+        R_flat[zero_indices] = 0
+
+        # Reshape the array back to its original shape
+        R_majority_zeros = R_flat.reshape(R.shape)
+        return R_majority_zeros
+    
+    R=flatArray(R)
+    
     return R
 
 
@@ -63,9 +85,11 @@ def initData():
 
     #get ratings as numpy array (rows=number of users,cols=ratings to all movies)
     #if a user didn't rate a movie, rating=0, also the order sequence is right because we use as index the movie.Id
+    usersService.filterData(100,500)
     usersService.exractRatings()    
     usersService.showDatesGraph()
-    ratingsFiltered=usersService.filterRatings(2,3)
+    # ratingsFiltered=usersService.filterRatings(2,3)
+    ratingsFiltered=usersService.Ratings
     printPart1(ratingsFiltered)
     # ratingsFiltered = usersService._ratings
     # print(ratingsFiltered)
@@ -135,6 +159,7 @@ def beginAppWithRealData(ratings):
 def beginAppWithFakeData():
     # testArray = TestArray()
     ratings = getArray()
+    print(ratings)
     kMeans(ratings)
     distance_matrix=jaccard_similar(ratings)
     trainModel(distance_matrix,ratings)
