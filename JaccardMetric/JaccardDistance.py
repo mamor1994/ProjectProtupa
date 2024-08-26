@@ -1,5 +1,5 @@
 import numpy as np
-from Tests.TestArray import TestArray
+
 class JaccardSimilar:
     def __init__(self):        
         self._R=None

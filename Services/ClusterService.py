@@ -1,5 +1,7 @@
 # from Tests2.TestArray2 import TestArray2
-from Tests.TestArray import TestArray
+import warnings
+warnings.filterwarnings('ignore', category=RuntimeWarning, message='All-NaN (slice|axis) encountered')
+
 from joblib import Parallel, delayed
 from Logger.Logger import Logger
 try:
@@ -8,6 +10,9 @@ try:
     from pyclustering.utils.metric import distance_metric, type_metric
     from sklearn.decomposition import PCA
     import numpy as np
+    # Suppress all runtime warnings
+    np.seterr(all='ignore')
+    warnings.simplefilter(action='ignore', category=RuntimeWarning)
     import matplotlib.pyplot as plt
     
 except ImportError as e:
@@ -16,8 +21,8 @@ import math
 
 class ClusterService:
     def __init__(self,logger=Logger):
-        testArray = TestArray()
-        self._R=testArray.getArray()
+        
+        self._R=None
         self._clusters=None
         self._centers=None
         self._metric = None
@@ -67,12 +72,16 @@ class ClusterService:
         self._metric=func
 
     def applyKmeans(self,numOfClusters):
+        self._R = np.nan_to_num(self._R)  # Replace NaNs with 0
         R=self._R
+        
+
         # Create instance of distance metric with your custom function
         metric = distance_metric(type_metric.USER_DEFINED, func=self._metric)
 
         # Prepare initial centers using K-Means++ method
-        initial_centers = kmeans_plusplus_initializer(R, numOfClusters).initialize()
+        # initial_centers = kmeans_plusplus_initializer(R, numOfClusters).initialize()
+        initial_centers = self.kmeans_plus_plus(R,numOfClusters)
 
         # Create instance of K-Means algorithm with prepared centers
         kmeans_instance = kmeans(R, initial_centers, metric=metric)
@@ -146,5 +155,29 @@ class ClusterService:
             distance_matrix[j][i] = distance  # Symmetric matrix
 
         return distance_matrix
+    
+
+    def kmeans_plus_plus(self,R, numOfClusters):
+        np.random.seed(42)  # for reproducibility
+        n_samples, _ = R.shape
+        centers = []
+        
+        # Choose the first center randomly
+        first_center_idx = np.random.choice(n_samples)
+        centers.append(R[first_center_idx])
+        
+        for _ in range(1, numOfClusters):
+            distances = np.min([np.sum((R - center)**2, axis=1) for center in centers], axis=0)
+            probs = distances / distances.sum()
+            cumulative_probs = np.cumsum(probs)
+            r = np.random.rand()
+            
+            for j, p in enumerate(cumulative_probs):
+                if r < p:
+                    i = j
+                    break
+            centers.append(R[i])
+        
+        return np.array(centers)
 
     
