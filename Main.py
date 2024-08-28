@@ -160,8 +160,8 @@ def calculateErrorRate(mean_absolute_error,val_mean_absolute_error):
     mean_dt_avg=sum(mean_dt)/len(mean_dt)
     val_dt_avg=sum(val_dt)/len(val_dt)
 
-    print("Ρυθμός μεταβολής του Μέσου Απολύτου Σφάλαμτος(Εκπαίδευση):",mean_dt_avg)
-    print("Ρυθμός μεταβολής του Μέσου Απολύτου Σφάλαμτος(Έλεγχος):",val_dt_avg)
+    print("Ρυθμός μεταβολής του Μέσου Απολύτου Σφάλματος(Εκπαίδευση):",mean_dt_avg)
+    print("Ρυθμός μεταβολής του Μέσου Απολύτου Σφάλματος(Έλεγχος):",val_dt_avg)
     if abs(val_dt_avg - mean_dt_avg)<=0.01:
         print("Το μοντέλο αποδίδει παρόμοια στα δεδομένα εκπαίδευσης και επικύρωσης, υποδεικνύοντας καλή γενίκευση.")
     elif val_dt_avg>mean_dt_avg:

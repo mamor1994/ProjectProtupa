@@ -47,8 +47,11 @@ class ClusterService:
        
     def calculateCosineDistance(self,R1,R2):
         dot_product = sum(ru * rv * self.Lx(ru) * self.Lx(rv) for ru, rv in zip(R1, R2))
-        magnitude_R1 = math.sqrt(sum(ru**2 * self.Lx(ru)*self.Lx(rv) for ru, rv in zip(R1, R2)))
-        magnitude_R2 = math.sqrt(sum(rv**2 * self.Lx(ru)*self.Lx(rv) for ru, rv in zip(R1, R2)))
+        # magnitude_R1 = math.sqrt(sum(ru**2 * self.Lx(ru)*self.Lx(rv) for ru, rv in zip(R1, R2)))
+        # magnitude_R2 = math.sqrt(sum(rv**2 * self.Lx(ru)*self.Lx(rv) for ru, rv in zip(R1, R2)))
+        magnitude_R1 = math.sqrt(sum(ru**2 * self.Lx(ru) for ru in R1 if self.Lx(ru)))
+        magnitude_R2 = math.sqrt(sum(rv**2 * self.Lx(rv) for rv in R2 if self.Lx(rv)))
+
         if magnitude_R1 == 0 or magnitude_R2 == 0:
             return 1  # If either vector is all zeros after applying Lx, return max distance of 1
         cosine_similarity = dot_product / (magnitude_R1 * magnitude_R2)
